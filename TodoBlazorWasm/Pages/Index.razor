@@ -1,9 +1,37 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<PageTitle>My TODOs</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Hello, person! These are the stuff you have on your list</h1>
 
-Welcome to your new app.
+Good luck in making them come true!
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<table class="table">       
+    <thead>
+            <tr>
+                <th>Title</th>
+                <th>Is it done?</th>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Items)
+            {
+            <tr>
+                <td>@item.Title</td>
+                <td>
+                    @item.IsDone
+                </td>
+                <td>
+                    <a href="@($"todo/{item.Id.ToString()}")" class="btn btn-primary table-btn">
+                        <i class="fas fa-edit"></i>
+                    </a>   
+                    <a href="#" class="btn btn-danger table-btn">
+                        <i class="fas fa-trash"></i>
+                    </a>  
+                </td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
