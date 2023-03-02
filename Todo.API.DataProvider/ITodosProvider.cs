@@ -6,6 +6,7 @@ namespace Todo.API.DataProvider
     {
         Task Add(ToDoItem item);
         Task<ToDoItem[]> GetTodos();
+        Task<ToDoItem> GetTodo(Guid id);
         Task Remove(Guid todoId);
     }
 }

@@ -6,13 +6,24 @@ using System.Threading.Tasks;
 
 namespace Todo.Shared
 {
-    public record ToDoItem(string Title = "", bool IsDone = false)
+    public class ToDoItem
     {
-        public Guid? Id { get; private set; } = Guid.NewGuid();
+        public ToDoItem()
+        {
 
-        //public void SetGuid(Guid id)
-        //{
-        //    Id = id;
-        //}
+        }
+
+        public ToDoItem(Guid id, string title = "", bool isDone = false)
+        {
+            Id = id;
+            Title = title;
+            IsDone = isDone;
+        }
+
+        public Guid? Id { get; set; }
+
+        public string Title { get; set; }
+
+        public bool IsDone { get; set; }
     }
 }

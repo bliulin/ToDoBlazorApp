@@ -13,8 +13,6 @@ namespace TodoBlazorWasm.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Items.AddRange(new[] { new ToDoItem("first task"), new ToDoItem("second task") });
-
             var array = await HttpClient.GetFromJsonAsync<ToDoItem[]>("/todos");
             Items = new List<ToDoItem>(array);
         }

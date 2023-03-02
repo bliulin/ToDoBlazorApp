@@ -40,6 +40,12 @@ app.MapPost("/todos", async (ToDoItem todo, ITodosProvider todosProvider) =>
     await todosProvider.Add(todo);
 });
 
+app.MapGet("/todos/{id}", async (Guid id, ITodosProvider todosProvider) =>
+{
+    var todoItem = await todosProvider.GetTodo(id);
+    return todoItem;
+});
+
 app.Run();
 
 internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)

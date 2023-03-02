@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Net.Http.Json;
 using Todo.Shared;
 
 namespace TodoBlazorWasm.Pages
@@ -11,12 +12,15 @@ namespace TodoBlazorWasm.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        protected override Task OnInitializedAsync()
+        [Inject]
+        public HttpClient HttpClient { get; set; }
+
+        protected override async Task OnInitializedAsync()
         {
-            return base.OnInitializedAsync();
+            TodoItem = await HttpClient.GetFromJsonAsync<ToDoItem>($"/todos/{Id}");
         }
 
-        public ToDoItem Item { get; set; } = new ToDoItem();
+        public ToDoItem TodoItem { get; set; } = new ToDoItem();
 
         protected void NavigateToOverview()
         {

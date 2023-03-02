@@ -2,7 +2,18 @@
 
 <PageTitle>Edit a TO-DO item</PageTitle>
 
-<h1>TODO... implement form</h1>
+<section>
+    <EditForm Model="@TodoItem">
+        <div class="form-group row">
+            <label for="title" class="col-sm-3">Title: </label>
+            <InputText id="title" class="form-control col-sm-8" @bind-Value="@TodoItem.Title" placeholder="e.g. Visit parents"></InputText>
+        </div>
+        <div class="form-group row">
+            <label for="isDone" class="col-sm-3">Is it done: </label>
+            <InputCheckbox id="isDone" @bind-Value="@TodoItem.IsDone"></InputCheckbox>
+        </div>
+    </EditForm>
+</section>
 
 
 <section>
