@@ -1,4 +1,6 @@
-﻿using Todo.Shared;
+﻿using Microsoft.AspNetCore.Components;
+using System.Net.Http.Json;
+using Todo.Shared;
 
 namespace TodoBlazorWasm.Pages
 {
@@ -6,11 +8,15 @@ namespace TodoBlazorWasm.Pages
     {
         public List<ToDoItem> Items { get; set; } = new List<ToDoItem>();
 
-        protected override Task OnInitializedAsync()
+        [Inject]
+        public HttpClient HttpClient { get; set; }
+
+        protected override async Task OnInitializedAsync()
         {
             Items.AddRange(new[] { new ToDoItem("first task"), new ToDoItem("second task") });
 
-            return Task.CompletedTask;
+            var array = await HttpClient.GetFromJsonAsync<ToDoItem[]>("/todos");
+            Items = new List<ToDoItem>(array);
         }
     }
 }

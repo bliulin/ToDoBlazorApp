@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Owin.Cors;
 using Todo.API.DataProvider;
 using Todo.Shared;
 
@@ -10,7 +12,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ITodosProvider, TodosProvider>();
 
+builder.Services.AddCors();
+
 var app = builder.Build();
+app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -20,6 +26,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 
 
 app.MapGet("/todos", async (ITodosProvider todosProvider) => 
