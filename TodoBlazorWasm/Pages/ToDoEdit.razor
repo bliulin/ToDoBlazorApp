@@ -3,7 +3,7 @@
 <PageTitle>Edit a TO-DO item</PageTitle>
 
 <section>
-    <EditForm Model="@TodoItem">
+    <EditForm Model="@TodoItem" OnValidSubmit="@HandleValidSubmit">
         <div class="form-group row">
             <label for="title" class="col-sm-3">Title: </label>
             <InputText id="title" class="form-control col-sm-8" @bind-Value="@TodoItem.Title" placeholder="e.g. Visit parents"></InputText>
@@ -12,10 +12,10 @@
             <label for="isDone" class="col-sm-3">Is it done: </label>
             <InputCheckbox id="isDone" @bind-Value="@TodoItem.IsDone"></InputCheckbox>
         </div>
+
+        <section>
+            <input type="submit" class="btn btn-primary edit-btn" value="Save" />
+            <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to list</a>
+        </section>
     </EditForm>
-</section>
-
-
-<section>
-    <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to list</a>
 </section>

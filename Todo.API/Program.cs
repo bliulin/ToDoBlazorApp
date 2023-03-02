@@ -40,6 +40,11 @@ app.MapPost("/todos", async (ToDoItem todo, ITodosProvider todosProvider) =>
     await todosProvider.Add(todo);
 });
 
+app.MapPut("/todos/{id}", async (ToDoItem todo, ITodosProvider todosProvider) => 
+{
+    await todosProvider.Edit(todo);
+});
+
 app.MapGet("/todos/{id}", async (Guid id, ITodosProvider todosProvider) =>
 {
     var todoItem = await todosProvider.GetTodo(id);

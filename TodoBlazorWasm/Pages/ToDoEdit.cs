@@ -20,6 +20,18 @@ namespace TodoBlazorWasm.Pages
             TodoItem = await HttpClient.GetFromJsonAsync<ToDoItem>($"/todos/{Id}");
         }
 
+        protected async Task HandleValidSubmit()
+        {
+            if (TodoItem.Id.HasValue)
+            {
+                await HttpClient.PutAsJsonAsync($"/todos/{TodoItem.Id}", TodoItem);
+            }
+            else
+            {
+                await HttpClient.PostAsJsonAsync($"/todos", TodoItem);
+            }
+        }
+
         public ToDoItem TodoItem { get; set; } = new ToDoItem();
 
         protected void NavigateToOverview()

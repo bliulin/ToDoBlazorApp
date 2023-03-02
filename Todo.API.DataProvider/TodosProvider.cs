@@ -23,15 +23,22 @@ namespace Todo.API.DataProvider
             return Task.CompletedTask;
         }
 
-        public Task Remove(Guid todoId)
+        public async Task Edit(ToDoItem item)
         {
-            var item = _items.FirstOrDefault(t => t.Id == todoId);
             if (item == null)
             {
-                throw new Exception($"Cannot find todo with id {todoId}");
+                throw new ArgumentNullException("item");
             }
+
+            var itemToEdit = await GetTodo(item.Id.Value);
+            itemToEdit.Title = item.Title;
+            itemToEdit.IsDone = item.IsDone;
+        }
+
+        public async Task Remove(Guid todoId)
+        {
+            var item = await GetTodo(todoId);
             _items.Remove(item);
-            return Task.CompletedTask;
         }
 
         public Task<ToDoItem> GetTodo(Guid todoId)
