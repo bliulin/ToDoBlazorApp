@@ -15,12 +15,20 @@ namespace TodoBlazorWasm.Pages
         [Inject]
         public HttpClient HttpClient { get; set; }
 
+        public List<Marker> MapMarkers { get; set; } = new List<Marker>();
+
         protected override async Task OnInitializedAsync()
         {
             if (Id != "new")
             {
                 TodoItem = await HttpClient.GetFromJsonAsync<ToDoItem>($"/todos/{Id}");
-            }            
+            }
+
+            MapMarkers = new List<Marker>
+            {
+                //47.158332750629924, 27.587009829664954
+                new Marker{Description = $"test",  ShowPopup = false, X = 47.158332750629924, Y = 27.587009829664954}
+            };
         }
 
         protected async Task HandleValidSubmit()
