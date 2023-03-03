@@ -51,6 +51,10 @@ app.MapGet("/todos/{id}", async (Guid id, ITodosProvider todosProvider) =>
     return todoItem;
 });
 
+app.MapDelete("/todos/{id}", async (Guid id, ITodosProvider todosProvider) => {
+    await todosProvider.Remove(id);
+});
+
 app.Run();
 
 internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)

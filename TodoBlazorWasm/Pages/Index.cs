@@ -16,5 +16,13 @@ namespace TodoBlazorWasm.Pages
             var array = await HttpClient.GetFromJsonAsync<ToDoItem[]>("/todos");
             Items = new List<ToDoItem>(array);
         }
+
+        protected async Task DeleteTodo(ToDoItem item)
+        {
+            await HttpClient.DeleteAsync($"/todos/{item.Id}");
+            var array = await HttpClient.GetFromJsonAsync<ToDoItem[]>("/todos");
+            Items = new List<ToDoItem>(array);
+            this.StateHasChanged();
+        }
     }
 }

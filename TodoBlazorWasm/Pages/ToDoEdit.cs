@@ -17,14 +17,17 @@ namespace TodoBlazorWasm.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            TodoItem = await HttpClient.GetFromJsonAsync<ToDoItem>($"/todos/{Id}");
+            if (Id != "new")
+            {
+                TodoItem = await HttpClient.GetFromJsonAsync<ToDoItem>($"/todos/{Id}");
+            }            
         }
 
         protected async Task HandleValidSubmit()
         {
-            if (TodoItem.Id.HasValue)
+            if (Id != "new")
             {
-                await HttpClient.PutAsJsonAsync($"/todos/{TodoItem.Id}", TodoItem);
+                await HttpClient.PutAsJsonAsync($"/todos/{Id}", TodoItem);
             }
             else
             {

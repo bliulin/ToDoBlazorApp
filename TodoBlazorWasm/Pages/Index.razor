@@ -23,10 +23,10 @@ Good luck in making them come true!
                     @item.IsDone
                 </td>
                 <td>
-                    <a href="@($"todo/{item.Id.ToString()}")" class="btn btn-primary table-btn">
+                    <a href="@($"todos/{item.Id.ToString()}")" class="btn btn-primary table-btn">
                         <i class="fas fa-edit"></i>
                     </a>   
-                    <a href="#" class="btn btn-danger table-btn">
+                    <a href="#" class="btn btn-danger table-btn" @onclick="@(() => DeleteTodo(item))">
                         <i class="fas fa-trash"></i>
                     </a>  
                 </td>
