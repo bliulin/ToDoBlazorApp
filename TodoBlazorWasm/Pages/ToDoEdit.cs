@@ -30,6 +30,13 @@ namespace TodoBlazorWasm.Pages
             {
                 await HttpClient.PostAsJsonAsync($"/todos", TodoItem);
             }
+
+            NavigationManager.NavigateTo("/");
+        }
+
+        protected void HandleInvalidSubmit()
+        {
+            
         }
 
         public ToDoItem TodoItem { get; set; } = new ToDoItem();

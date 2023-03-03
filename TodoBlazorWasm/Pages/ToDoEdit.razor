@@ -3,14 +3,22 @@
 <PageTitle>Edit a TO-DO item</PageTitle>
 
 <section>
-    <EditForm Model="@TodoItem" OnValidSubmit="@HandleValidSubmit">
+    <EditForm Model="@TodoItem" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
+
+        <DataAnnotationsValidator />
+        <ValidationSummary></ValidationSummary>
+
         <div class="form-group row">
             <label for="title" class="col-sm-3">Title: </label>
             <InputText id="title" class="form-control col-sm-8" @bind-Value="@TodoItem.Title" placeholder="e.g. Visit parents"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => TodoItem.Title)" />
         </div>
+
         <div class="form-group row">
-            <label for="isDone" class="col-sm-3">Is it done: </label>
-            <InputCheckbox id="isDone" @bind-Value="@TodoItem.IsDone"></InputCheckbox>
+            <label for="isDone">
+                <InputCheckbox id="isDone" @bind-Value="@TodoItem.IsDone"></InputCheckbox>
+                &nbsp;Is it done?
+            </label>
         </div>
 
         <section>
