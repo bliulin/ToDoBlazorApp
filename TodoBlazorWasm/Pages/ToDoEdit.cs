@@ -27,7 +27,7 @@ namespace TodoBlazorWasm.Pages
             MapMarkers = new List<Marker>
             {
                 //47.158332750629924, 27.587009829664954
-                new Marker{Description = $"test",  ShowPopup = false, X = 47.158332750629924, Y = 27.587009829664954}
+                new Marker{Description = $"test",  ShowPopup = false, X = 27.587009829664954, Y = 47.158332750629924}
             };
         }
 
