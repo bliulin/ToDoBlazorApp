@@ -6,17 +6,17 @@
 
 Good luck in making them come true!
 
-<table class="table">       
+<table class="table">
     <thead>
-            <tr>
-                <th>Title</th>
-                <th>Is it done?</th>
-                <td>Actions</td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Items)
-            {
+        <tr>
+            <th>Title</th>
+            <th>Is it done?</th>
+            <td>Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Items)
+        {
             <tr>
                 <td>@item.Title</td>
                 <td>
@@ -25,13 +25,17 @@ Good luck in making them come true!
                 <td>
                     <a href="@($"todos/{item.Id.ToString()}")" class="btn btn-primary table-btn">
                         <i class="fas fa-edit"></i>
-                    </a>   
+                    </a>
                     <a href="#" class="btn btn-danger table-btn" @onclick="@(() => DeleteTodo(item))">
                         <i class="fas fa-trash"></i>
-                    </a>  
+                    </a>
                 </td>
 
             </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
+
+<ConfirmationDialog @ref="ConfirmationDeleteDialog" CloseEventCallback="@OnConfirmationDeleteTodoDialogClosed" 
+    Title="Confirmation dialog"
+    Content="@ConfirmationText"></ConfirmationDialog>
