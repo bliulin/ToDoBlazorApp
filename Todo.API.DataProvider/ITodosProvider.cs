@@ -4,10 +4,10 @@ namespace Todo.API.DataProvider
 {
     public interface ITodosProvider
     {
-        Task Add(ToDoItem item);
-        Task Edit(ToDoItem item);
-        Task<ToDoItem[]> GetTodos();
-        Task<ToDoItem> GetTodo(Guid id);
+        Task Add(TodoItemModel item);
+        Task Edit(TodoItemModel item);
+        Task<TodoItemModel[]> GetTodos();
+        Task<TodoItemModel> GetTodo(Guid id);
         Task Remove(Guid todoId);
     }
 }

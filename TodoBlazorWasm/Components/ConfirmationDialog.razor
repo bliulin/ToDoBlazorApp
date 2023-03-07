@@ -1,0 +1,23 @@
+﻿@if (ShowModal)
+{
+    <div class="modal fade show d-block" id="exampleModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="titleLabel">@Title</h5>
+                    <button type="button" class="close" @onclick="@Close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <p>@Content</p>
+
+                    <a class="btn btn-outline-primary" @onclick="@OnOkClicked">OK</a>
+                    <a class="btn btn-outline-primary" @onclick="@OnCancelClicked">Cancel</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Owin.Cors;
 using Todo.API.DataProvider;
@@ -10,7 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<ITodosProvider, TodosProvider>();
+builder.Services.AddScoped<ITodosProvider, TodosDatabaseProvider>();
+builder.Services.AddDbContext<TodoDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TodoDb")));
 
 builder.Services.AddCors();
 
@@ -27,20 +29,18 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-
-
 app.MapGet("/todos", async (ITodosProvider todosProvider) => 
 {
     var list = await todosProvider.GetTodos();
     return list;
 });
 
-app.MapPost("/todos", async (ToDoItem todo, ITodosProvider todosProvider) => 
+app.MapPost("/todos", async (TodoItemModel todo, ITodosProvider todosProvider) => 
 {
     await todosProvider.Add(todo);
 });
 
-app.MapPut("/todos/{id}", async (ToDoItem todo, ITodosProvider todosProvider) => 
+app.MapPut("/todos/{id}", async (TodoItemModel todo, ITodosProvider todosProvider) => 
 {
     await todosProvider.Edit(todo);
 });
@@ -56,8 +56,3 @@ app.MapDelete("/todos/{id}", async (Guid id, ITodosProvider todosProvider) => {
 });
 
 app.Run();
-
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

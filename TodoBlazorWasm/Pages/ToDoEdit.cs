@@ -15,11 +15,13 @@ namespace TodoBlazorWasm.Pages
         [Inject]
         public HttpClient HttpClient { get; set; }
 
+        public TodoItemModel TodoItem { get; set; } = new TodoItemModel();
+
         protected override async Task OnInitializedAsync()
         {
             if (Id != "new")
             {
-                TodoItem = await HttpClient.GetFromJsonAsync<ToDoItem>($"/todos/{Id}");
+                TodoItem = await HttpClient.GetFromJsonAsync<TodoItemModel>($"/todos/{Id}");
             }            
         }
 
@@ -40,9 +42,7 @@ namespace TodoBlazorWasm.Pages
         protected void HandleInvalidSubmit()
         {
             
-        }
-
-        public ToDoItem TodoItem { get; set; } = new ToDoItem();
+        }        
 
         protected void NavigateToOverview()
         {
