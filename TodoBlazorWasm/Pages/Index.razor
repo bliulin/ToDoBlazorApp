@@ -6,32 +6,52 @@
 
 Good luck in making them come true!
 
-<table class="table">       
+<table class="table">
     <thead>
+        <tr>
+            <th>Title</th>
+            <th>Is it done?</th>
+            <td>Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+
+        <Virtualize Items="Items" ItemSize="50">
             <tr>
-                <th>Title</th>
-                <th>Is it done?</th>
-                <td>Actions</td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Items)
-            {
-            <tr>
-                <td>@item.Title</td>
+                <td>@context.Title</td>
                 <td>
-                    @item.IsDone
+                    @context.IsDone
                 </td>
                 <td>
-                    <a href="@($"todos/{item.Id.ToString()}")" class="btn btn-primary table-btn">
+                    <a href="@($"todos/{context.Id.ToString()}")" class="btn btn-primary table-btn">
                         <i class="fas fa-edit"></i>
-                    </a>   
-                    <a href="#" class="btn btn-danger table-btn" @onclick="@(() => DeleteTodo(item))">
+                    </a>
+                    <a href="#" class="btn btn-danger table-btn" @onclick="@(() => DeleteTodo(context))">
                         <i class="fas fa-trash"></i>
-                    </a>  
+                    </a>
                 </td>
 
             </tr>
-            }
-        </tbody>
-    </table>
+        </Virtualize>
+
+
+        @*@foreach (var item in Items)
+        {
+        <tr>
+        <td>@item.Title</td>
+        <td>
+        @item.IsDone
+        </td>
+        <td>
+        <a href="@($"todos/{item.Id.ToString()}")" class="btn btn-primary table-btn">
+        <i class="fas fa-edit"></i>
+        </a>
+        <a href="#" class="btn btn-danger table-btn" @onclick="@(() => DeleteTodo(item))">
+        <i class="fas fa-trash"></i>
+        </a>
+        </td>
+
+        </tr>
+        }*@
+    </tbody>
+</table>

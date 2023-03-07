@@ -66,3 +66,7 @@ a, .btn-link {
 .row {
     margin-bottom: 20px;
 }
+
+.table {
+    height: 600px;
+}
