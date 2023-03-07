@@ -26,4 +26,20 @@
             <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to list</a>
         </section>
     </EditForm>
+
+    <Counter />
+
+    @*<a class="btn btn-outline-primary" @onclick="@Recover">Recover counter</a>*@
+    @*<ErrorBoundary>
+        <ChildContent>
+            <Counter />
+        </ChildContent>
+        <ErrorContent>
+            <p class="errorUI">Nothing to see here right now. Sorry!</p>
+        </ErrorContent>
+    </ErrorBoundary>*@
+    @*<ErrorBoundary @ref="ErrorBoundary">
+        <Counter />
+    </ErrorBoundary>*@
+
 </section>

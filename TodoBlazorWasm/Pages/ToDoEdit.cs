@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System.Net.Http.Json;
 using Todo.Shared;
 
@@ -14,6 +15,8 @@ namespace TodoBlazorWasm.Pages
 
         [Inject]
         public HttpClient HttpClient { get; set; }
+
+        protected ErrorBoundary? ErrorBoundary;
 
         protected override async Task OnInitializedAsync()
         {
@@ -47,6 +50,11 @@ namespace TodoBlazorWasm.Pages
         protected void NavigateToOverview()
         {
             NavigationManager.NavigateTo("/");
+        }
+
+        protected void Recover()
+        {
+            ErrorBoundary?.Recover();
         }
     }
 }
