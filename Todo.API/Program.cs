@@ -12,6 +12,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ITodosProvider, TodosProvider>();
 
+builder.Services.AddDbContext<TodoDbContext>();
+//builder.Services.AddDbContext<TodoDbContext>(options =>
+//        options.UseSqlServer(builder.Configuration.GetConnectionString("TodoDb")));
+
 builder.Services.AddCors();
 
 var app = builder.Build();
