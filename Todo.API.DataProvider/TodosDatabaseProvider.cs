@@ -44,13 +44,7 @@ namespace Todo.API.DataProvider
                 throw new ArgumentNullException("item");
             }
 
-            var entity = await context.TodoItems.FirstOrDefaultAsync(e => e.PublicId == model.Id);
-            if (entity == null)
-            {
-                //TODO: use Result instead of throwing exception
-                //https://josef.codes/my-take-on-the-result-class-in-c-sharp/
-                throw new Exception($"Cannot find todo with id {model.Id}");
-            }
+            var entity = await this.GetTodoEntity(model.Id.Value);
             entity.Title = model.Title;
             entity.IsDone = model.IsDone;
             await context.SaveChangesAsync();
@@ -58,28 +52,27 @@ namespace Todo.API.DataProvider
 
         public async Task Remove(Guid todoId)
         {
-            var entity = await context.TodoItems.FirstOrDefaultAsync(item => item.PublicId == todoId);
-            if (entity == null)
-            {
-                //TODO: use Result instead of throwing exception
-                //https://josef.codes/my-take-on-the-result-class-in-c-sharp/
-                throw new Exception($"Cannot find todo with id {todoId}");
-            }
+            var entity = await this.GetTodoEntity(todoId);
             context.TodoItems.Remove(entity);
             await context.SaveChangesAsync();
         }
 
         public async Task<TodoItemModel> GetTodo(Guid todoId)
         {
-            var entity = await context.TodoItems.FirstOrDefaultAsync(item => item.PublicId == todoId);
+            var entity = await this.GetTodoEntity(todoId);
+            return MappingUtils.ModelFromEntity(entity);
+        }
+
+        private async Task<TodoItem> GetTodoEntity(Guid id)
+        {
+            var entity = await context.TodoItems.FirstOrDefaultAsync(item => item.PublicId == id);
             if (entity == null)
             {
                 //TODO: use Result instead of throwing exception
                 //https://josef.codes/my-take-on-the-result-class-in-c-sharp/
-                throw new Exception($"Cannot find todo with id {todoId}");
+                throw new Exception($"Cannot find todo with id {id}");
             }
-
-            return MappingUtils.ModelFromEntity(entity);
+            return entity;
         }
     }
 }
